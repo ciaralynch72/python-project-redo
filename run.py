@@ -140,8 +140,10 @@ def start_game(word):
 
             if guess not in player_guesses:
                 player_guesses.append(guess)
-                clear_screen()
-
+                chances -= 1
+            else:
+                print("You already guessed it, please try again...")
+                all_letter_only()
             if current_country(word, player_guesses) == word:
                 print(Fore.LIGHTGREEN_EX + f'Yay! You guessed {word.upper()}!')
                 print("\n")
@@ -155,7 +157,8 @@ def start_game(word):
                 else:
                     print("\n")
                     print(Fore.LIGHTYELLOW_EX + guess + " is not correct.")
-                    chances -= 1
+                    
+                    
         else:
             print("\n")
             print(Fore.RED + "Hard luck! The destination was " + word.upper())
