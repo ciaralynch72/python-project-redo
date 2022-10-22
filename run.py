@@ -85,15 +85,16 @@ def current_country(word, guesses):
     return current_country
 
 
-def all_letter_only():
+def letters_only():
     """
     this function will allow user to select
-    only letters and no character or numbers
+    only letters and no characters or numbers
     """
     while True:
-        user_input_letter = input("type a letter: \n").lower()
+        user_input_letter = input("Guess a letter: \n").lower()
         if not user_input_letter.isalpha():
-            print('Error, please select a letter')
+            print('Not a valid guess! \n')
+            print('Remember, letters only. \n')
         else:
             return user_input_letter
 
@@ -136,14 +137,16 @@ def start_game(word):
             time.sleep(0.5)
             print(Fore.LIGHTCYAN_EX + f'Used letters: {str(player_guesses)}')
             print("\n")
-            guess = all_letter_only()[0]
+            guess = letters_only()[0]
 
             if guess not in player_guesses:
                 player_guesses.append(guess)
-                chances -= 1
+                clear_screen()
             else:
-                print("You already guessed it, please try again...")
-                all_letter_only()
+                if guess in player_guesses:
+                    print('You already guessed it. Try again')
+                    continue
+            
             if current_country(word, player_guesses) == word:
                 print(Fore.LIGHTGREEN_EX + f'Yay! You guessed {word.upper()}!')
                 print("\n")
@@ -157,7 +160,7 @@ def start_game(word):
                 else:
                     print("\n")
                     print(Fore.LIGHTYELLOW_EX + guess + " is not correct.")
-                    
+                    chances -= 1
                     
         else:
             print("\n")
